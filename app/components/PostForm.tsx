@@ -1,5 +1,7 @@
 // /app/components/PostForm.tsx
 import { useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { Map } from './Map'
 
 interface PostFormProps {
   onSubmit: (formData: FormData) => Promise<void>
@@ -7,17 +9,26 @@ interface PostFormProps {
 }
 
 export default function PostForm({ onSubmit, isSubmitting }: PostFormProps) {
+  const { data: session } = useSession()
   const [location, setLocation] = useState('')
   const [description, setDescription] = useState('')
   const [estimatedCost, setEstimatedCost] = useState('')
   const [image, setImage] = useState<File | null>(null)
+  const [latitude, setLatitude] = useState(0)
+  const [longitude, setLongitude] = useState(0)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    if (!session) {
+      alert('You must be logged in to create a post')
+      return
+    }
     const formData = new FormData()
     formData.append('location', location)
     formData.append('description', description)
     formData.append('estimatedCost', estimatedCost)
+    formData.append('latitude', latitude.toString())
+    formData.append('longitude', longitude.toString())
     if (image) {
       formData.append('image', image)
     }
@@ -38,6 +49,14 @@ export default function PostForm({ onSubmit, isSubmitting }: PostFormProps) {
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           required
+        />
+      </div>
+      <div className="mb-4">
+        <Map
+          onLocationSelect={(lat, lng) => {
+            setLatitude(lat)
+            setLongitude(lng)
+          }}
         />
       </div>
       <div className="mb-4">
