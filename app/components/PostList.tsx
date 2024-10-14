@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import { Post } from '@/lib/types'
-import PostCard from './PostCard'
+import PostCard from './postcard'
 
 export default function PostList() {
   const [posts, setPosts] = useState<Post[]>([])

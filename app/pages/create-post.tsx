@@ -3,7 +3,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import PostForm from '../components/PostForm'
+import PostForm from '../components/postform'
 
 export default function CreatePost() {
   const router = useRouter()

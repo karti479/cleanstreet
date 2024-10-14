@@ -1,6 +1,6 @@
 // /app/page.tsx
 import Link from 'next/link'
-import PostList from './components/PostList' // Adjusted import path
+import PostList from './components/postlist' // Adjusted import path
 
 export default function Home() {
   return (

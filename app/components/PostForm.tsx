@@ -1,7 +1,7 @@
 // /app/components/PostForm.tsx
 import { useState } from 'react'
 import { useSession } from 'next-auth/react'
-import { Map } from './Map'
+import { Map } from './map'
 
 interface PostFormProps {
   onSubmit: (formData: FormData) => Promise<void>
